@@ -22,6 +22,14 @@ embedder = OpenAIEmbeddings(model="text-embedding-ada-002")
 
 
 # Create retriever
+from neo4j_graphrag.retrievers import VectorRetriever
+
+retriever = VectorRetriever(
+    driver,
+    index_name="moviePlots",
+    embedder=embedder,
+    return_properties=["title", "plot"],
+)
 
 # Search for similar items
 
