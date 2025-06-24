@@ -5,6 +5,7 @@ load_dotenv()
 from neo4j import GraphDatabase
 from neo4j_graphrag.llm import OpenAILLM
 from neo4j_graphrag.generation import GraphRAG
+from neo4j_graphrag.retrievers import Text2CypherRetriever
 
 # Connect to Neo4j database
 driver = GraphDatabase.driver(
@@ -15,17 +16,23 @@ driver = GraphDatabase.driver(
     )
 )
 
-# Create LLM 
-t2c_llm =
-
+# Create Cypher LLM 
+t2c_llm = OpenAILLM(
+    model_name="gpt-4o", 
+    model_params={"temperature": 0}
+)
 
 # Build the retriever
-retriever = 
+retriever = Text2CypherRetriever(
+    driver=driver,
+    llm=t2c_llm,
+)
 
 llm = OpenAILLM(model_name="gpt-4o")
 rag = GraphRAG(retriever=retriever, llm=llm)
 
-query_text = "Which movies did Hugo Weaving star in?"
+query_text = "Which movies did Hugo Weaving acted in?"
+query_text = "What are examples of Action movies?"
 
 response = rag.search(
     query_text=query_text,
