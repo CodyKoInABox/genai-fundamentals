@@ -32,6 +32,7 @@ retriever = VectorRetriever(
 )
 
 # Search for similar items
+result = retriever.search(query_text="Toys coming alive", top_k=5)
 
 # Parse results
 
