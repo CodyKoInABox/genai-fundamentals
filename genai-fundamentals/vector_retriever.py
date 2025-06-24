@@ -4,6 +4,7 @@ load_dotenv()
 
 from neo4j import GraphDatabase
 
+
 # Connect to Neo4j database
 driver = GraphDatabase.driver(
     os.getenv("NEO4J_URI"), 
@@ -13,7 +14,12 @@ driver = GraphDatabase.driver(
     )
 )
 
+
 # Create embedder
+from neo4j_graphrag.embeddings.openai import OpenAIEmbeddings
+
+embedder = OpenAIEmbeddings(model="text-embedding-ada-002")
+
 
 # Create retriever
 
